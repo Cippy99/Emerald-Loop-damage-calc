@@ -4141,7 +4141,7 @@ finally {
     }
     finally { if (e_1) throw e_1.error; }
 }
-var SV_PATCH = {
+var LOOP_PATCH = {
     'Aerial Ace': { isSlicing: true },
     Aeroblast: { isWind: true },
     'Air Cutter': { isSlicing: true, isWind: true },
@@ -4901,7 +4901,7 @@ var SV_PATCH = {
         target: 'allAdjacentFoes'
     }
 };
-var SV = (0, util_1.extend)(true, {}, SS, SV_PATCH);
+var SV = (0, util_1.extend)(true, {}, SS, LOOP_PATCH);
 exports.MOVES = [{}, RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 var Moves = (function () {
     function Moves(gen) {
