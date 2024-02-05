@@ -547,7 +547,10 @@ function smogonAnalysis(pokemonName) {
 }
 
 function setSprite(pokemonName, id){
-	var exceptions = ["Ho-Oh", "Hakamo-o", "Jangmo-o", "Kommo-o", "Porygon-Z", "Nidoran-M", "Nidoran-F"];
+
+	pokemonName = pokemonName.toLowerCase()
+
+	var exceptions = ["ho-oh", "hakamo-o", "jangmo-o", "kommo-o", "porygon-z", "nidoran-m", "nidoran-f"];
 
 	if(exceptions.includes(pokemonName)){
 		pokemonName = pokemonName.replace("-", "_");
