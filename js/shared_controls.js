@@ -556,7 +556,7 @@ function setSprite(pokemonName, id){
 		pokemonName = pokemonName.replace("-", "_");
 	}
 
-	pokemonName = pokemonName.replace(" ", "_").replace(".", "");
+	pokemonName = pokemonName.replace(" ", "_").replace("’", "").replace(".", "");
 
 	var dashIndex = pokemonName.indexOf("-");
 	if(dashIndex !== -1){

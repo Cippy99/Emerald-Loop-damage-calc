@@ -490,6 +490,7 @@ table.field {
     border-bottom-width: 2px;
     border-left-width: 0.5px;
     border-radius: 3px;
+    margin-top: 3px;
 }
 
 .hpbar.hp-green {
@@ -542,4 +543,15 @@ table.field {
     float: right;
     width: 15%;
     padding-right: 4cm;
+}
+
+
+select {
+
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 12px;
+    
 }
