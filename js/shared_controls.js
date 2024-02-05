@@ -546,6 +546,23 @@ function smogonAnalysis(pokemonName) {
 	return "https://smogon.com/dex/" + generation + "/pokemon/" + pokemonName.toLowerCase() + "/";
 }
 
+function setSprite(pokemonName, id){
+	var exceptions = ["Ho-Oh", "Hakamo-o", "Jangmo-o", "Kommo-o", "Porygon-Z", "Nidoran-M", "Nidoran-F"];
+
+	if(exceptions.includes(pokemonName)){
+		pokemonName = pokemonName.replace("-", "_");
+	}
+
+	pokemonName = pokemonName.replace(" ", "_").replace(".", "");
+
+	var dashIndex = pokemonName.indexOf("-");
+	if(dashIndex !== -1){
+		pokemonName = pokemonName.substring(0, dashIndex);
+	}
+	console.log(dashIndex, pokemonName)
+	$('#'+id+'Sprite').attr('src', "img/pokemon/" + pokemonName + ".png");
+}
+
 // auto-update set details on select
 $(".set-selector").change(function () {
 	var fullSetName = $(this).val();
@@ -554,6 +571,9 @@ $(".set-selector").change(function () {
 	var pokemon = pokedex[pokemonName];
 	if (pokemon) {
 		var pokeObj = $(this).closest(".poke-info");
+		
+		setSprite(pokemonName, pokeObj.attr('id'))
+
 		var isAutoTera =
 		(startsWith(pokemonName, "Ogerpon") && endsWith(pokemonName, "Tera")) ||
 		pokemonName === 'Terapagos-Stellar';

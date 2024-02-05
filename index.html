@@ -38,19 +38,7 @@
 
 <body class="dark-theme">
 
-<nav><div class="header"><div class="header-inner">
-    <ul class="nav">
-        <li><a class="button nav-first" href="//pokemonshowdown.com"><img src="./img/pokemonshowdownbeta.png" alt="Pok&eacute;mon Showdown! (beta)" /> Home</a></li>
-        <li><a class="button" href="//dex.pokemonshowdown.com">Pok&eacute;dex</a></li>
-        <li><a class="button" href="//replay.pokemonshowdown.com/">Replays</a></li>
-        <li><a class="button" href="//pokemonshowdown.com/ladder/">Ladder</a></li>
-        <li><a class="button nav-last" href="//pokemonshowdown.com/forums/">Forum</a></li>
-    </ul>
-    <ul class="nav nav-play">
-        <li><a class="button greenbutton nav-first nav-last" href="//play.pokemonshowdown.com/">Play</a></li>
-    </ul>
-    <div style="clear:both"></div>
-</div></div></nav>
+<div class="logo"><a href="https://github.com/Cippy99/pokemon-emerald-loop"><img src="img/Emerald Loop logo.png" alt="logo"></a></div>
 <div class="wrapper">
 
     <span class="title-text main-title-text">Pok&eacute;mon Emerald Loop Damage Calculator</span>
@@ -85,6 +73,8 @@
         <div  aria-labelledby="resultHeaderL" class="move-result-subgroup" role="radiogroup">
             <div class="result-move-header"><span id="resultHeaderL">Pok&eacute;mon 1's Moves (select one to show detailed results)</span>
             </div>
+
+            <div class="sprite-container"><img src="img/decamark.png" alt="p1Sprite" class="sprite mirrored" id="p1Sprite"></div>
             <div>
                 <input class="result-move visually-hidden" type="radio" name="resultMove" id="resultMoveL1" checked="checked" aria-describedby="resultDamageL1" />
                 <label class="btn btn-xxxwide btn-top" for="resultMoveL1">Loading...</label>
@@ -109,6 +99,7 @@
         <div aria-labelledby="resultHeaderR" class="move-result-subgroup" role="radiogroup">
             <div class="result-move-header"><span id="resultHeaderR">Pok&eacute;mon 2's Moves (select one to show detailed results)</span>
             </div>
+            <div class="sprite-container"><img src="img/decamark.png" alt="p1Sprite" class="sprite" id="p2Sprite"></div>
             <div>
                 <input class="result-move visually-hidden" type="radio" name="resultMove" id="resultMoveR1" aria-describedby="resultDamageR1" />
                 <label class="btn btn-xxxwide btn-top" for="resultMoveR1">Loading...</label>
@@ -735,7 +726,7 @@
                             <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Hail" id="hail" />
                             <label class="btn btn-small btn-right" for="hail">Hail</label>
                         </span>
-                        <span class="gen-specific g10">
+                        <span class="gen-specific g9">
                             <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Snow" id="snow" />
                             <label class="btn btn-small btn-right" for="snow">Snow</label>
                         </span>
@@ -1628,10 +1619,7 @@
     <script type="text/javascript" src="./js/moveset_import.js?988db89f"></script>
 </div>
 
-<div class="credits">Created by Honko, maintained by Austin and Kris
-    <ul><li><a href="https://github.com/smogon/damage-calc/contributors" class="links-lighten" target="_blank">Contributors</a></li>
-    <li><a href="https://www.smogon.com/forums/threads/pok%C3%A9mon-showdown-damage-calculator.3593546/" class="links-lighten" target="_blank">Bug Reports</a></li>
-    <li><a href="https://github.com/smogon/damage-calc" class="links-lighten" target="_blank">GitHub repository</a></li></ul>
+<div class="credits">
 
     <button type="button" id="dark-theme-toggle"></button>
     <script type="text/javascript" src="./js/dark-theme-toggle.js?4adfa54a"></script>

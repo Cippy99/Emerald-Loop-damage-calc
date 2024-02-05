@@ -524,3 +524,22 @@ table.field {
 .extraSetMoves {
     width: 100%;
 }
+
+.logo{
+    text-align: center;
+    padding-top: 0.2cm;
+}
+
+.mirrored{
+    transform: scaleX(-1);
+}
+
+.sprite{
+    width: 100%;
+}
+
+.sprite-container{
+    float: right;
+    width: 15%;
+    padding-right: 4cm;
+}
