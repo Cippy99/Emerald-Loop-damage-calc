@@ -539,10 +539,31 @@ table.field {
     width: 100%;
 }
 
+.sprite-small{
+    width: 15%;
+    margin: 4px;
+}
+
 .sprite-container{
     float: right;
     width: 15%;
     padding-right: 4cm;
+}
+
+.trainer-poks{
+    border: 1px;
+    border-style: solid;
+    padding: 2px;
+}
+
+.trainer-pok{
+    border: solid transparent 1px;
+    padding: 2px;
+}
+
+.trainer-pok:hover{
+    border: solid 1px;
+    border-radius: 3px;
 }
 
 

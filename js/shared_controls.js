@@ -548,6 +548,11 @@ function smogonAnalysis(pokemonName) {
 
 function setSprite(pokemonName, id){
 
+	var spriteName = getSpriteName(pokemonName)
+	$('#'+id+'Sprite').attr('src', "img/pokemon/" + spriteName + ".png");
+}
+
+function getSpriteName(pokemonName){
 	pokemonName = pokemonName.toLowerCase()
 
 	var exceptions = ["ho-oh", "hakamo-o", "jangmo-o", "kommo-o", "porygon-z", "nidoran-m", "nidoran-f"];
@@ -562,13 +567,34 @@ function setSprite(pokemonName, id){
 	if(dashIndex !== -1){
 		pokemonName = pokemonName.substring(0, dashIndex);
 	}
-	console.log(dashIndex, pokemonName)
-	$('#'+id+'Sprite').attr('src', "img/pokemon/" + pokemonName + ".png");
+
+	return pokemonName
 }
 
 // auto-update set details on select
 $(".set-selector").change(function () {
 	var fullSetName = $(this).val();
+
+	if ($(this).hasClass('opposing')) {
+		CURRENT_TRAINER_POKS = get_trainer_poks(fullSetName)
+
+
+	var next_poks = CURRENT_TRAINER_POKS
+
+	var trpok_html = ""
+	for (i in next_poks ) {
+		if (next_poks[i][0].includes($('input.opposing').val())){
+			continue
+		}
+		var pok_name = next_poks[i].split(" ")[0]
+		var spriteName = getSpriteName(pok_name.toLowerCase())
+		var pok = `<img class="trainer-pok right-side sprite-small" src="img/pokemon/${spriteName}.png" data-id="${CURRENT_TRAINER_POKS[i].split("[")[0]}" title="${next_poks[i]}, ${next_poks[i]} BP">`
+		trpok_html += pok
+	}
+	}
+
+	$('.trainer-pok-list-opposing').html(trpok_html)
+
 	var pokemonName = fullSetName.substring(0, fullSetName.indexOf(" ("));
 	var setName = fullSetName.substring(fullSetName.indexOf("(") + 1, fullSetName.lastIndexOf(")"));
 	var pokemon = pokedex[pokemonName];
@@ -1218,6 +1244,8 @@ var RANDDEX = [
 ];
 var gen, genWasChanged, notation, pokedex, setdex, randdex, typeChart, moves, abilities, items, calcHP, calcStat, GENERATION;
 
+TR_NAMES = get_trainer_names()
+
 $(".gen").change(function () {
 	/*eslint-disable */
 	gen = ~~$(this).val() || 9;
@@ -1562,6 +1590,108 @@ function loadCustomList(id) {
 		}
 	});
 }
+
+function get_trainer_names() {
+    var all_sets = [
+        {}, 
+        typeof SETDEX_RBY === 'undefined' ? {} : SETDEX_RBY,
+        typeof SETDEX_GSC === 'undefined' ? {} : SETDEX_GSC,
+        typeof SETDEX_ADV === 'undefined' ? {} : SETDEX_ADV,
+        typeof SETDEX_DPP === 'undefined' ? {} : SETDEX_DPP,
+        typeof SETDEX_BW === 'undefined' ? {} : SETDEX_BW,
+        typeof SETDEX_XY === 'undefined' ? {} : SETDEX_XY,
+        typeof SETDEX_SM === 'undefined' ? {} : SETDEX_SM,
+        typeof SETDEX_SS === 'undefined' ? {} : SETDEX_SS,
+        typeof SETDEX_SV === 'undefined' ? {} : SETDEX_SV
+    ];
+    
+    var trainer_names = [];
+
+    all_sets.forEach(function(set) {
+        for (const [pok_name, poks] of Object.entries(set)) {
+            var pok_tr_names = Object.keys(poks);
+            for (i in pok_tr_names) {
+                var trainer_name = pok_tr_names[i];
+                trainer_names.push(`${pok_name} (${trainer_name})`);
+            }
+        }
+    });
+
+    return trainer_names;
+}
+
+function get_box() {
+    var names = get_trainer_names();
+    var box = [];
+    var box_html = "";
+
+    // Object to keep track of encountered custom entries
+    var encounteredCustom = {};
+
+    for (var i = 0; i < names.length; i++) {
+        if (names[i].includes("Custom")) {
+            var customName = names[i].split(" (")[0];
+
+            // Check if this custom entry has been encountered before
+            if (!encounteredCustom[customName]) {
+                encounteredCustom[customName] = true;
+
+                // Push the custom name to the box array
+                box.push(customName);
+
+                // Extract the Pokémon name from the custom name
+                var pok_name = customName.split(" (")[0];
+
+                // Create the Pokémon sprite HTML
+				var spriteName = getSpriteName(pok_name.toLowerCase())
+                var pok = `<img class="sprite-small mirrored left-side trainer-pok" src="img/pokemon/${spriteName}.png" data-id="${customName} (Custom Set)" title="${customName} (Custom Set)">`;
+
+                // Append the Pokémon sprite HTML to the box_html string
+                box_html += pok;
+            }
+        }
+    }
+
+    // Set the inner HTML of the .player-poks element to the box_html string
+    $('.player-poks').html(box_html);
+
+    // Return the box array (optional)
+    return box;
+}
+
+function get_trainer_poks(trainer_name)
+{
+
+	var true_name = trainer_name.split("(")[1]
+    var matches = []
+    for (i in TR_NAMES) {
+        if (TR_NAMES[i].includes(true_name)) {
+            matches.push(TR_NAMES[i])
+        }
+    }
+    return matches
+}
+
+$(document).on('click', '.right-side', function() {
+	var set = $(this).attr('data-id')
+	$('.opposing').val(set)
+	console.log("hit")
+
+	$('.opposing').change()
+	$('.opposing .select2-chosen').text(set)
+})
+
+$(document).on('click', '.left-side', function() {
+	var set = $(this).attr('data-id')
+	console.log(set)
+	$('.player').val(set)
+
+	$('.player').change()
+	$('.player .select2-chosen').text(set)
+	get_box()
+})
+
+
 
 $(document).ready(function () {
 	var params = new URLSearchParams(window.location.search);
